@@ -92,5 +92,25 @@ Mapping to a Random Host Port:
 ```
 docker run -p 80 nginx
 ```
+Docker will pick a random, available high-numbered port on your host and map it to container port 80.
+You can then use docker ps to see which host port was assigned (e.g., 0.0.0.0:32768->80/tcp).
 
+Mapping a Range of Ports:
+You can map a range of host ports to a range of container ports.
+```
+docker run -p 8000-8005:80-85 my-app-image
+```
+Host 8000 maps to container 80, host 8001 maps to container 81, and so on.
+
+Specifying Protocol (TCP/UDP):
+By default, -p maps TCP ports. You can explicitly specify UDP if needed:
+```
+docker run -p 53:53/udp bind9-image
+```
+Binding to a Specific Host IP Address:
+If your host machine has multiple IP addresses and you want the service to be accessible only on a particular one:
+```
+docker run -p 192.168.1.100:80:80 nginx
+```
+This maps host IP 192.168.1.100 port 80 to container port 80
 
