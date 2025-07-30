@@ -76,9 +76,21 @@ The -f (force) flag with docker rm is important here, as docker rm cannot remove
 In summary, docker ps -aq is a powerful and concise way to get a list of container IDs for further processing in the Docker CLI
 
 
+-p or --publish: This is the flag that indicates you want to publish (map) a port.
+```powershell
+docker run -p <host_port>:<container_port> <image_name>
+```
+Without -p, your container/apartment has an internal door (its container port), but no one from outside the building knows about it.
+Examples:
+```powershell
+docker run -p 8080:80 nginx
+```
+This starts an Nginx container.
+Traffic to http://localhost:8080 on your host will be routed to port 80 inside the Nginx container.
 
-
-
-
+Mapping to a Random Host Port:
+```
+docker run -p 80 nginx
+```
 
 
