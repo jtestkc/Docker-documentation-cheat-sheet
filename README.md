@@ -13,19 +13,19 @@ Docker pull
 The docker pull command is used to download Docker images from a Docker registry to your local machine. When you execute docker pull <image_name>[:<tag>], Docker connects to the specified registry (Docker Hub by default) and downloads the image with the given name and optional tag (e.g., ubuntu:latest, nginx:1.21). If no tag is specified, it defaults to latest.
 
 ```powershell
-docker pull nignx
+docker pull nginx
 ```
 docker run
 The docker run command is used to create and start a new Docker container from a specified Docker image. It is a fundamental command in Docker for launching applications within isolated environments. 
 terminal gets freezed and when you close the terminal it also stops running container.
 
 ```
-docker run nignx:latest
+docker run nginx:latest
 ```
 start a new container from a Docker image in detached mode. When you include -d, Docker starts the container in the background. Your terminal prompt will return immediately, and the container will continue to run even if you close the terminal session. This is ideal for running services, web applications, databases, or any long-running process that doesn't require direct interaction with your terminal.
 
 ```powershell
-docker run -d nignx:latest
+docker run -d nginx:latest
 ```
 docker container -
 command is used to list Docker containers.
