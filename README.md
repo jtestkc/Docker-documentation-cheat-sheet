@@ -114,3 +114,43 @@ docker run -p 192.168.1.100:80:80 nginx
 ```
 This maps host IP 192.168.1.100 port 80 to container port 80
 
+Docker name 
+--name flag in Docker is used with commands like docker run to assign a custom, human-readable name to your Docker container.
+```
+docker run --name <your_custom_name> <image_name>
+```
+Readability and Memorability:
+
+Without --name: If you don't specify a name, Docker will automatically generate a random, often quirky, name for your container (e.g., stoic_murdock, jolly_bose, hungry_carson). While unique, these are hard to remember or identify.
+With --name: You can give your container a descriptive name like my-web-server, database-dev, cms-app, making it immediately clear what the container's purpose is.
+
+Network Aliasing (within Docker networks):
+When containers are connected to user-defined Docker networks, the --name of a container also acts as a DNS alias within that network. This means other containers on the same network can reach your container simply by its name, rather than needing to know its IP address. This is crucial for multi-container applications (e.g., a web app container connecting to a database container).
+
+# Create a network
+```
+docker network create my-app-network
+```
+# Run a database container in the network
+```
+docker run -d --name my-db --network my-app-network mysql:latest
+```
+# Run a web app container that connects to the database
+```
+docker run -d --name my-web --network my-app-network my-web-app:latest
+```
+
+docker ps --format provides immense flexibility for tailoring the output of your container list, making it invaluable for both interactive use and scripting.
+```
+docker ps--format="ID\t{{.ID}}\nNAME\t{{.Names}}\nIMAGE\t{{.Image}}\nPORTS\t{{.Ports}}\nCOMMAND\t{{.Command}}\nCREATED\t{{.CreatedAt}}\nSTATUS\t{{.Status}}\n"
+```
+Making it Permanent:
+
+You can set a default format for docker ps in your Docker configuration file (~/.docker/config.json) by adding a psFormat entry:
+```json
+{
+  "psFormat": "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
+}
+```
+(Remember to escape backslashes if editing directly in JSON).
+
